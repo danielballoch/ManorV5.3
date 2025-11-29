@@ -3,7 +3,9 @@ const EleventyFetch = require("@11ty/eleventy-fetch");
 const crypto = require('crypto');
 
 async function getPropertyData(){
-     //Property vars
+    console.log("rex is running") 
+    
+    //Property vars
      var username = process.env.MANOR_USERNAME;
      var password = process.env.MANOR_PASSWORD;
      var auth = 'Basic ' + Buffer.from(username + ':' + password).toString('base64');
@@ -49,6 +51,8 @@ async function getPropertyData(){
         }
     })
     const data = await response;
+
+    console.log("Auth Response", data)
     let AuthKey = data.result;
     
     //second step is to get property data
@@ -138,7 +142,7 @@ async function getPropertyData(){
             //     postcode: "3210"
             // })
             let d = propertyData.result;
-            // console.log("property data set:",d.property.adr_unit_number)
+            // console.log("property data set:",d.property.adr_unit_number, d.property.adr_street_number, d.property.adr_street_name, d.property.adr_suburb_or_town)
             // console.log("$UNIT",d.property.adr_unit_number)
             // console.log("$STREET NUMBER", d.property.adr_street_number)
             let tenancy_apibody = JSON.stringify({
@@ -191,16 +195,16 @@ async function getPropertyData(){
                 allData.push([propertyData, imageData, tpData, i, x])
             }
     }
-    console.log("RexDataLength:",allData.length)
-    for(let i = 0; i < allData.length; i++){
-        console.log("RexData"+i,", Agent:" + allData[i][0].result.listing_agent_1.name, "Property: "+allData[i][0].result.property.system_search_key)
-        console.log("RexDataAll", allData[i][0].result)
-    }
+    // console.log("RexDataLength:",allData.length)
+    // for(let i = 0; i < allData.length; i++){
+    //     console.log("RexData"+i,", Agent:" + allData[i][0].result.listing_agent_1.name, "Property: "+allData[i][0].result.property.system_search_key)
+    //     console.log("RexDataAll", allData[i][0].result)
+    // }
     
     // console.log("show here pt.2: ", allData[0][1].result)
-    console.log("RexData1:",allData)
+    // console.log("RexData1:",allData)
     // console.log("RexData1:",allData[0][0].result.related.listing_subcategories)
-    console.log("RexData0:",allData[0][0].result)
+    // console.log("RexData0:",allData[0][0].result)
     // console.log("RexData1:",allData[1][0].result.listing_agent_1)
     // console.log("RexData2:",allData[2][0].result.listing_agent_1)
     // console.log("RexData3:",allData[3][0].result.listing_agent_1)
